@@ -7,3 +7,16 @@ before_install:
 
 script:
   - docker run -e CI=true elotgamu/docker-course npm run test -- --watchAll=false
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "docker-course"
+  env: "DockerCourse-env"
+  bucket_name: "elasticbeanstalk-us-west-2-236245858461"
+  bucket_path: "docker-course"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
